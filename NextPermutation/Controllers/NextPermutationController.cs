@@ -27,7 +27,7 @@ namespace NextPermutation.Controllers
                 return Ok(response);
             }
             else { 
-                var response = new Response { Code = -1, Message = "Empty entry", Vector = vector, Next = new int[0] };
+                var response = new Response { Code = -1, Message = "Empty entry", Vector = vector, Next = "" };
                 return Ok(response);
             }
                         

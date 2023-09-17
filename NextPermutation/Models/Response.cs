@@ -8,7 +8,7 @@
 
         public string Vector { get; set; } // original vector
 
-        public int[] Next { get; set; } // next permutation
+        public string Next { get; set; } // next permutation
 
     }
 }

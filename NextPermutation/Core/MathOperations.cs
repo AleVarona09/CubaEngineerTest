@@ -11,7 +11,9 @@ namespace NextPermutation.Core
 
             int n = vector.Length;
 
-            if (n < 101)
+            bool negativeNumber = vector.Any(x => x<0);
+
+            if (n < 101 && n>0 && !negativeNumber)
             {
                 int i = n - 2, j;
 
@@ -33,6 +35,12 @@ namespace NextPermutation.Core
                 if (!find)
                 {
                     ReverseVector(vector, 0, n - 1);
+
+                    response.Code = 0;
+                    response.Message = "There is no greater permutation.";
+                    response.Vector = vec;
+                    response.Next = "";
+
                 }
                 else //find the next one of pivot
                 {
@@ -60,15 +68,15 @@ namespace NextPermutation.Core
                     response.Code = 0;
                     response.Message = "Next permutation find.";
                     response.Vector = vec;
-                    response.Next = vector;
+                    response.Next = string.Join(',', vector);
                 }
             }
             else
             {
                 response.Code = -1;
-                response.Message = "The vector must have a max of 100 values.";
+                response.Message = "The vector must have a min of 1 value and a max of 100 values, and all must be positive.";
                 response.Vector = vec;
-                response.Next = new int[0];
+                response.Next = "";
             }
 
             return response;
