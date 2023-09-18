@@ -18,14 +18,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IOperations,MathOperations>();
 builder.Services.AddScoped<IUserRepo,UserRepo>();
-builder.Services.AddSingleton<IAccesToken,AccesTokenGenerator>();
-
-string connnectionString = builder.Configuration.GetConnectionString("sqlite");
-builder.Services.AddDbContext<AuthenticationDbContext>(a => a.UseSqlite(connnectionString));
 
 AuthenticationConfiguration authenticationConfiguration = new AuthenticationConfiguration();
 builder.Configuration.Bind("Authentication", authenticationConfiguration);
 builder.Services.AddSingleton(authenticationConfiguration);
+
+builder.Services.AddSingleton<IAccesToken, TokenGenerator>();
+builder.Services.AddSingleton<AccesTokenGenerator>();
+builder.Services.AddSingleton<RefreshTokenGenerator>();
+
+string connnectionString = builder.Configuration.GetConnectionString("sqlite");
+builder.Services.AddDbContext<AuthenticationDbContext>(a => a.UseSqlite(connnectionString));
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o => 
 {
@@ -36,7 +39,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidAudience = authenticationConfiguration.Audience,
         ValidateIssuerSigningKey = true,
         ValidateIssuer = true,
-        ValidateAudience = true
+        ValidateAudience = true,
+        ClockSkew = TimeSpan.Zero
     };
 });
 

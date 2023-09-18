@@ -9,12 +9,14 @@ namespace NextPermutation.Controllers
     public class AuthenticationController : Controller
     {
         private readonly IUserRepo _userRepo;
-        private readonly IAccesToken _accesToken;
+        private readonly AccesTokenGenerator _accesToken;
+        private readonly RefreshTokenGenerator _refreshTokenGenerator;
 
-        public AuthenticationController(IUserRepo userRepo, IAccesToken accesToken)
+        public AuthenticationController(IUserRepo userRepo, AccesTokenGenerator accesToken, RefreshTokenGenerator refreshToken)
         {
             _userRepo = userRepo;
             _accesToken = accesToken;
+            _refreshTokenGenerator = refreshToken;
         }
 
         [HttpPost("register")]
@@ -71,9 +73,13 @@ namespace NextPermutation.Controllers
             }
 
             string accesToken = _accesToken.GenerateToken(user);
+            string refreshToken = _refreshTokenGenerator.GenerateToken();
 
-            return Ok(new ResponseAuth(){AccesToken = accesToken}); 
+            return Ok(new ResponseAuth()
+            {
+                AccesToken = accesToken, 
+                RefreshToken = refreshToken
+            }); 
         }
-
     }
 }
