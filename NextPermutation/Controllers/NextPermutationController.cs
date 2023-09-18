@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NextPermutation.Core;
 using NextPermutation.Models;
@@ -16,6 +17,7 @@ namespace NextPermutation.Controllers
             _operations = operations;
         }
 
+        [Authorize]
         [HttpGet("{vector}")]
         public ActionResult<Response> FindNextpermutation(string vector)
         {

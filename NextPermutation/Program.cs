@@ -1,8 +1,12 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using NextPermutation.Core;
 using NextPermutation.Data;
+using NextPermutation.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,10 +18,27 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IOperations,MathOperations>();
 builder.Services.AddScoped<IUserRepo,UserRepo>();
+builder.Services.AddSingleton<IAccesToken,AccesTokenGenerator>();
 
 string connnectionString = builder.Configuration.GetConnectionString("sqlite");
 builder.Services.AddDbContext<AuthenticationDbContext>(a => a.UseSqlite(connnectionString));
 
+AuthenticationConfiguration authenticationConfiguration = new AuthenticationConfiguration();
+builder.Configuration.Bind("Authentication", authenticationConfiguration);
+builder.Services.AddSingleton(authenticationConfiguration);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o => 
+{
+    o.TokenValidationParameters = new TokenValidationParameters()
+    {
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationConfiguration.AccesTokenSecretKey)),
+        ValidIssuer = authenticationConfiguration.Issuer,
+        ValidAudience = authenticationConfiguration.Audience,
+        ValidateIssuerSigningKey = true,
+        ValidateIssuer = true,
+        ValidateAudience = true
+    };
+});
 
 var app = builder.Build();
 
@@ -30,6 +51,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

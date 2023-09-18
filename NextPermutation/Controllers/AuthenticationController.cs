@@ -9,11 +9,12 @@ namespace NextPermutation.Controllers
     public class AuthenticationController : Controller
     {
         private readonly IUserRepo _userRepo;
+        private readonly IAccesToken _accesToken;
 
-
-        public AuthenticationController(IUserRepo userRepo)
+        public AuthenticationController(IUserRepo userRepo, IAccesToken accesToken)
         {
             _userRepo = userRepo;
+            _accesToken = accesToken;
         }
 
         [HttpPost("register")]
@@ -52,7 +53,27 @@ namespace NextPermutation.Controllers
 
             return Ok(await _userRepo.CreateUser(userReg));             
         }
-    
-    
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+        {
+            if (!ModelState.IsValid)
+            {
+                IEnumerable<string> error = ModelState.Values.SelectMany(x => x.Errors.Select(e => e.ErrorMessage));
+
+                return BadRequest(error);
+            }
+
+            User user = await _userRepo.GetByUsername(loginRequest.Username);
+            if(user == null || user.Password!=loginRequest.Password)
+            {
+                return Unauthorized();
+            }
+
+            string accesToken = _accesToken.GenerateToken(user);
+
+            return Ok(new ResponseAuth(){AccesToken = accesToken}); 
+        }
+
     }
 }
