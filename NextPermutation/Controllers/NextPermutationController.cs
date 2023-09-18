@@ -9,13 +9,11 @@ namespace NextPermutation.Controllers
     [Route("api/[controller]")]
     public class NextPermutationController : ControllerBase
     {
-        private readonly ILogger<NextPermutationController> _logger;
         private readonly IOperations _operations;
 
-        public NextPermutationController(IOperations operations, ILogger<NextPermutationController> logger)
+        public NextPermutationController(IOperations operations)
         {
             _operations = operations;
-            _logger = logger;
         }
 
         [HttpGet("{vector}")]

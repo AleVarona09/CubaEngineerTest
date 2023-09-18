@@ -1,4 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using NextPermutation.Core;
+using NextPermutation.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +12,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IOperations, MathOperations>();
+builder.Services.AddSingleton<IOperations,MathOperations>();
+builder.Services.AddScoped<IUserRepo,UserRepo>();
+
+string connnectionString = builder.Configuration.GetConnectionString("sqlite");
+builder.Services.AddDbContext<AuthenticationDbContext>(a => a.UseSqlite(connnectionString));
+
 
 var app = builder.Build();
 
