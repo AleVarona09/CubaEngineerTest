@@ -15,7 +15,7 @@ namespace NextPermutation.Data
 
         public async Task<User> CreateUser(User user)
         {
-            _context.Add(user);
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
             
             return user;

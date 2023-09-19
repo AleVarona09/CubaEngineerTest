@@ -18,6 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IOperations,MathOperations>();
 builder.Services.AddScoped<IUserRepo,UserRepo>();
+builder.Services.AddScoped<IRefreshTokenRepo, RefreshTokenRepo>();
 
 AuthenticationConfiguration authenticationConfiguration = new AuthenticationConfiguration();
 builder.Configuration.Bind("Authentication", authenticationConfiguration);
@@ -26,6 +27,8 @@ builder.Services.AddSingleton(authenticationConfiguration);
 builder.Services.AddSingleton<IAccesToken, TokenGenerator>();
 builder.Services.AddSingleton<AccesTokenGenerator>();
 builder.Services.AddSingleton<RefreshTokenGenerator>();
+builder.Services.AddSingleton<RefreshTokenValidator>();
+
 
 string connnectionString = builder.Configuration.GetConnectionString("sqlite");
 builder.Services.AddDbContext<AuthenticationDbContext>(a => a.UseSqlite(connnectionString));
