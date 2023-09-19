@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "9b26785b-2c14-450d-bae2-8f60690471e2",
+		"name": "Postman request",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test 1,2,3,6,5,4",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7107/api/NextPermutation/1%2C2%2C3%2C6%2C5%2C4",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7107",
+					"path": [
+						"api",
+						"NextPermutation",
+						"1%2C2%2C3%2C6%2C5%2C4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Base 1,2,3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7107/api/NextPermutation/1%2C2%2C3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7107",
+					"path": [
+						"api",
+						"NextPermutation",
+						"1%2C2%2C3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Greater permutation 3,2,1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7107/api/NextPermutation/3%2C2%2C1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7107",
+					"path": [
+						"api",
+						"NextPermutation",
+						"3%2C2%2C1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Negative number",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7107/api/NextPermutation/1%2C2%2C3%2C-8%2C4%2C5%2C6",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7107",
+					"path": [
+						"api",
+						"NextPermutation",
+						"1%2C2%2C3%2C-8%2C4%2C5%2C6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"ale@ale.com\",\r\n  \"username\": \"aleVT\",\r\n  \"password\": \"pass\",\r\n  \"confirmPassword\": \"pass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7107/api/Authentication/register",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7107",
+					"path": [
+						"api",
+						"Authentication",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"aleVT\",\r\n  \"password\": \"pass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7107/api/Authentication/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7107",
+					"path": [
+						"api",
+						"Authentication",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE2OTUwOTMwODIsImV4cCI6MTY5NTE3OTQ4MiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzEwNyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjcxMDcifQ.k1g6KQbV6fypKvlogPHARakTGx-JrBmkchLDihG7m8g\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7107/api/Authentication/refresh",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7107",
+					"path": [
+						"api",
+						"Authentication",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE2OTUwOTMwODIsImV4cCI6MTY5NTE3OTQ4MiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzEwNyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjcxMDcifQ.k1g6KQbV6fypKvlogPHARakTGx-JrBmkchLDihG7m8g\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7107/api/Authentication/refresh",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7107",
+					"path": [
+						"api",
+						"Authentication",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
