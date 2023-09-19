@@ -24,4 +24,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NextPermutation\NextPermutation.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NextPermutation.Core;
 using NextPermutation.Models;
@@ -9,15 +10,14 @@ namespace NextPermutation.Controllers
     [Route("api/[controller]")]
     public class NextPermutationController : ControllerBase
     {
-        private readonly ILogger<NextPermutationController> _logger;
         private readonly IOperations _operations;
 
-        public NextPermutationController(IOperations operations, ILogger<NextPermutationController> logger)
+        public NextPermutationController(IOperations operations)
         {
             _operations = operations;
-            _logger = logger;
         }
 
+        [Authorize]
         [HttpGet("{vector}")]
         public ActionResult<Response> FindNextpermutation(string vector)
         {
